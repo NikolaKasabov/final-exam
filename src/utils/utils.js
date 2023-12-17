@@ -6,6 +6,14 @@ function convertStringToArray(string) {
   return arr;
 }
 
+/*
+  returns data in format:
+  [
+    [employeeId, projectId, dateFrom, dateTo],
+    [employeeId, projectId, dateFrom, dateTo],
+    ...
+  ]
+*/
 function convertArrayToMatrix(arr) {
   const matrix = arr.map(line => {
     return line.split(',')
@@ -50,6 +58,47 @@ function getNumberOfOverlappingDaysIn2Periods(dateFrom1, dateTo1, dateFrom2, dat
   return days;
 }
 
+/*
+  returns data in format:
+    {
+      'employee1Id,employee2Id': { project10Id: days, project20Id: days },
+      'employee3Id,employee4Id': { project30Id: days },   // shows how many days employee3 and employee4 have worked together on project30
+      ...
+    }
+*/
+function getUnfilteredData(matrix) {
+  const result = {};
+
+  for (let i = 0; i < matrix.length - 1; i++) {
+    for (let j = (i + 1); j < matrix.length; j++) {
+      const row1 = matrix[i];
+      const row2 = matrix[j];
+
+      if (row1[0] !== row2[0]                                        // different employees ids
+        && row1[1] === row2[1]                                       // same project ids
+        && doPeriodsOverlap(row1[2], row1[3], row2[2], row2[3])) {   // overlapping periods
+        const employeesIds = `${row1[0]},${row2[0]}`;
+        const projectId = row1[1];
+        const days = getNumberOfOverlappingDaysIn2Periods(row1[2], row1[3], row2[2], row2[3]);
+
+        if (!result.hasOwnProperty(employeesIds)) {
+          result[employeesIds] = {
+            [projectId]: days,
+          };
+        } else {
+          if (!result[employeesIds].hasOwnProperty(projectId)) {
+            result[employeesIds][projectId] = days;
+          } else {
+            result[employeesIds][projectId] += days;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
 export {
   MILISECONDS_IN_1_DAY,
   convertStringToArray,
@@ -58,4 +107,5 @@ export {
   getDate,
   doPeriodsOverlap,
   getNumberOfOverlappingDaysIn2Periods,
+  getUnfilteredData,
 };
