@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react';
-import { convertArrayToMatrix, convertStringToArray, isDateValid } from '../../utils/utils';
+import { convertArrayToMatrix, convertStringToArray, getDate, isDateValid } from '../../utils/utils';
 import { ProjectsContext } from '../../context/ProjectsContext';
 import classes from './FileLoader.module.css';
 
@@ -35,6 +35,11 @@ function FileLoader({ className }) {
           if (!isDateValid(row[i]) && row[i].toLowerCase() !== 'null') {
             errors.push(`Element on line ${index + 1}, position ${i + 1} must be a valid date.`);
           }
+        }
+
+        // check if the 'to' date is not before the 'from' date
+        if (getDate(row[3]) - getDate(row[2]) < 0) {
+          errors.push(`The end date is before the start date on line ${index + 1}.`);
         }
       });
 
