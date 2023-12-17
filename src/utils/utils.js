@@ -15,7 +15,12 @@ function convertArrayToMatrix(arr) {
   return matrix;
 }
 
+function isDateValid(dateString) {
+  return !isNaN(new Date(dateString));
+}
+
 export {
   convertStringToArray,
-  convertArrayToMatrix
+  convertArrayToMatrix,
+  isDateValid,
 };

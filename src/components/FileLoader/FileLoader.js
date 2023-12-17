@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react';
-import { convertArrayToMatrix, convertStringToArray } from '../../utils/utils';
+import { convertArrayToMatrix, convertStringToArray, isDateValid } from '../../utils/utils';
 import { ProjectsContext } from '../../context/ProjectsContext';
 import classes from './FileLoader.module.css';
 
@@ -22,11 +22,19 @@ function FileLoader({ className }) {
       const arr = convertStringToArray(data);
       const matrix = convertArrayToMatrix(arr);
 
-      // error checking
+      // input data error checking 
       const errors = [];
       matrix.forEach((row, index) => {
+        // check if number of the elements on each line is correct
         if (row.length !== 4) {
-          errors.push(`Invalid data on line ${index + 1}`);
+          errors.push(`Invalid data on line ${index + 1}.`);
+        }
+
+        // check if the dates(elements on positions 3 and 4) are in correct format
+        for (let i = 2; i < 4; i++) {
+          if (!isDateValid(row[i]) && row[i].toLowerCase() !== 'null') {
+            errors.push(`Element on line ${index + 1}, position ${i + 1} must be a valid date.`);
+          }
         }
       });
 
