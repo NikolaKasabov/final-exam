@@ -1,5 +1,13 @@
 const MILISECONDS_IN_1_DAY = 86400000;
 
+/*
+  returns data in format:
+  [
+    'employeeId, projectId, dateFrom, dateTo',
+    'employeeId, projectId, dateFrom, dateTo',
+    ...
+  ]
+*/
 function convertStringToArray(string) {
   const arr = string.split(/(\r\n|\r|\n)/g)
     .filter(el => el.trim().length !== 0);
@@ -99,13 +107,21 @@ function getUnfilteredData(matrix) {
   return result;
 }
 
+/*
+  input: { project1: 12, project2: 8 }
+  output: 20
+*/
+function getDaysNumbersSum(projectsObj) {
+  const daysNumbers = Object.values(projectsObj);
+  const result = daysNumbers.reduce((acc, cur) => acc + cur, 0);
+  return result;
+}
+
 export {
-  MILISECONDS_IN_1_DAY,
   convertStringToArray,
   convertArrayToMatrix,
   isDateValid,
   getDate,
-  doPeriodsOverlap,
-  getNumberOfOverlappingDaysIn2Periods,
   getUnfilteredData,
+  getDaysNumbersSum,
 };

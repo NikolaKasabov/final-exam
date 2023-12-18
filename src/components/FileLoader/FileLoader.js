@@ -60,7 +60,6 @@ function FileLoader({ className }) {
       <input type="file" onChange={handleFileUpload} ref={inputRef} />
     </label>
   );
-
 }
 
 export default FileLoader;
