@@ -11,12 +11,14 @@ function CommonProjectsList() {
   }
 
   return (
-    <ul className={classes.container}>
-      <h2>Projects list</h2>
-      {Object.entries(unfilteredData).map(arr => {
-        return <CommonProjectsItem key={arr[0]} employeesIds={arr[0]} data={arr[1]} />
-      })}
-    </ul>
+    <div className={classes.container}>
+      <h2 className={classes.title}>Projects list</h2>
+      <ul>
+        {Object.entries(unfilteredData).map(arr => {
+          return <CommonProjectsItem key={arr[0]} employeesIds={arr[0]} data={arr[1]} />
+        })}
+      </ul>
+    </div>
   );
 }
 

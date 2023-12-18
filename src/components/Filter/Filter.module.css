@@ -1,0 +1,24 @@
+.container {
+  margin-top: 30px;
+}
+
+.container label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.container select {
+  min-width: 150px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 15px;
+  border-color: #888;
+}
+
+@media screen and (max-width: 500px) {
+  .container label {
+    flex-direction: column;
+  }
+}

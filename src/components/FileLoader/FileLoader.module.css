@@ -15,6 +15,7 @@
 
 .file-loader:hover {
   border-color: #888;
+  color: #888;
 }
 
 .file-loader input {

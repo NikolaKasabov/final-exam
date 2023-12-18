@@ -11,7 +11,7 @@ function CommonProjectsItem({ employeesIds, data }) {
 
   return (
     <li className={classes.container}>
-      <p>Employees with ids: <span>{emp1Id}</span> and <span>{emp2Id}</span> have worked <span>{daysNumberSum}</span> days together on the following projects:</p>
+      <p>Employees with ids: <span>{emp1Id}</span> and <span>{emp2Id}</span> have worked together for <span>{daysNumberSum}</span> days, on the following projects:</p>
       <ul>
         {Object.entries(data).map(el => {
           const [projectId, days] = el;
