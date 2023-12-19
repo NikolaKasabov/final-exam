@@ -35,6 +35,10 @@ function isDateValid(dateString) {
   return !isNaN(new Date(dateString));
 }
 
+/*
+  accepts string and returns a date,
+  if the string is null the returned date is today
+*/
 function getDate(dateString) {
   if (dateString.toLowerCase() === 'null') {
     const today = new Date();
